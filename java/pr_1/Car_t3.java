@@ -32,6 +32,6 @@ public class Car_t3 {
         System.out.println("Номер: " + license);
         System.out.println("Цвет: " + color);
         System.out.println("Год выпуска: " + year);
-        System.out.println("-------------------------");
+        System.out.println("---------------");
     }
 }
