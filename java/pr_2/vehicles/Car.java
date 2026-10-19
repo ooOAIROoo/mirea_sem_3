@@ -1,11 +1,12 @@
 package vehicles;
 
-/** Обычный автомобиль. */
+/** Обычный автомобиль, наследующий абстрактный класс Vehicle. */
 public class Car extends Vehicle {
     private static final String DEFAULT_ENGINE_TYPE = "Gasoline";
 
     public Car() {
-        this("", "", "", 0, "", "", DEFAULT_ENGINE_TYPE);
+        super();
+        this.engineType = DEFAULT_ENGINE_TYPE;
     }
 
     public Car(
@@ -15,7 +16,14 @@ public class Car extends Vehicle {
             int year,
             String ownerName,
             String insuranceNumber) {
-        this(model, license, color, year, ownerName, insuranceNumber, DEFAULT_ENGINE_TYPE);
+        // Использование методов (сеттеров) и защищённого поля родительского класса Vehicle
+        setModel(model);
+        setLicense(license);
+        setColor(color);
+        setYear(year);
+        setOwnerName(ownerName);
+        setInsuranceNumber(insuranceNumber);
+        this.engineType = DEFAULT_ENGINE_TYPE;
     }
 
     public Car(
@@ -27,6 +35,7 @@ public class Car extends Vehicle {
             String insuranceNumber,
             String engineType) {
         super(model, license, color, year, ownerName, insuranceNumber, engineType);
+        this.engineType = engineType;
     }
 
     @Override
