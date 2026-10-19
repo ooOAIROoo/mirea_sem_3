@@ -10,9 +10,11 @@
 1. [Цель работы и теоретические сведения](#1-цель-работы-и-теоретические-сведения)
 2. [Постановка задачи](#2-постановка-задачи)
 3. [Структура проекта](#3-структура-проекта)
-4. [Ход выполнения работы](#4-ход-выполнения-работы)
-5. [Результат работы программы](#5-результат-работы-программы)
-6. [Заключение](#6-заключение)
+4. [Ход выполнения работы (Часть 1)](#4-ход-выполнения-работы-часть-1)
+5. [Результат работы программы (Часть 1)](#5-результат-работы-программы-часть-1)
+6. [Часть 2. Проект bikeproject: ответы на вопросы и модернизация](#6-часть-2-проект-bikeproject-ответы-на-вопросы-и-модернизация)
+7. [Результат работы программы (Часть 2)](#7-результат-работы-программы-часть-2)
+8. [Заключение](#8-заключение)
 
 ---
 
@@ -71,6 +73,32 @@
 - получение информации о ёмкости батареи у электромобиля;
 - вывод информации о транспортных средствах в консоль с помощью метода `toString()`.
 
+**Часть 2. Проект `bikeproject` (проектирование интерфейсов).**
+
+Импортируйте файл `bikeproject.zip` в папку на вашем компьютере — проект размещён в каталоге [`java/pr_3/uploaded`](./uploaded) (Eclipse-проект `bikeproject`).
+
+Полезные ссылки: [Интерфейсы](https://docs.oracle.com/javase/tutorial/java/concepts/interface.html), [Методы интерфейса](https://docs.oracle.com/javase/tutorial/java/IandI/override.html), [Использование `super`](https://docs.oracle.com/javase/tutorial/java/IandI/super.html).
+
+**Ответьте на следующие вопросы:**
+- Приведите пример примитивного типа данных, который используется для хранения полей в классе.
+- Приведите пример того, где происходит конкатенация строк.
+- Каковы имена объектов, созданных в этой программе?
+- Сколько конструкторов у каждого класса?
+- Наследование является частью этой программы. Определите супер- и подклассы из этой программы.
+- Горные и шоссейные велосипеды могут быть сконструированы либо с использованием значений по умолчанию (стандартный велосипед), либо настроены в соответствии с потребностями клиента. Используя таблицу значений, определите примеры значений, назначенных одному из каждого типа стандартного велосипеда.
+
+**Модернизация программы:**
+1. Создайте интерфейс в проекте велосипеда, который устанавливает название компании-производителя велосипедов как неизменяемое значение. Он также определяет методы, которые должны быть реализованы любым классом, использующим интерфейс.
+2. Создайте интерфейс с именем **`MountainParts`**, который имеет константу с именем **`TERRAIN`**, хранящую строковое значение `"off_road"`. Интерфейс определит два метода, которые принимают строковый аргумент с именем `newValue`, и два метода, которые будут возвращать текущее значение поля экземпляра. Методы должны быть названы: `getSuspension`, `setSuspension`, `getType`, `setType`.
+3. Создайте интерфейс **`RoadParts`**, который имеет константу с именем `terrain`, хранящую строковое значение `"track_racing"`. Интерфейс определит два метода, которые принимают строковый аргумент с именем `newValue`, и два метода, которые будут возвращать текущее значение поля экземпляра. Методы должны быть названы: `getTyreWidth`, `setTyreWidth`, `getPostHeight`, `setPostHeight`.
+4. Используйте интерфейс **`BikeParts`** с классом **`Bike`**, добавляя любые необходимые нереализованные методы. Добавьте требуемый внутренний код для каждого из добавленных методов.
+5. Используйте интерфейс **`MountainParts`** с классом **`MountainBike`**, добавив все необходимые нереализованные методы. Добавьте требуемый внутренний код для каждого из добавленных методов.
+6. Используйте интерфейс **`RoadParts`** с классом **`RoadBike`**, добавив все необходимые нереализованные методы. Добавьте требуемый внутренний код для каждого из добавленных методов.
+7. Запустите и протестируйте свою программу — она должна работать точно так же, как и раньше.
+8. В нижней части класса драйвера обновите высоту столба для `bike1` до 20 вместо 22.
+9. Выведите значения `bike1` на экран, чтобы подтвердить изменение.
+10. Запустите и протестируйте свою программу.
+
 ---
 
 ## 3. Структура проекта
@@ -99,9 +127,29 @@ java/pr_3/
 | Класс `ElectricCar`, поле `batteryCapacity`, тип двигателя `"Electric"` | `vehicles/ElectricCar.java` |
 | Тестирование программы | `app/TestCar.java` |
 
+**Структура проекта Части 2 (`java/pr_3/uploaded`):**
+
+```text
+java/pr_3/uploaded/                     # Eclipse-проект bikeproject из архива
+├── .classpath                          # настройки проекта Eclipse (JavaSE-1.8)
+├── .project
+├── .settings/
+│   └── org.eclipse.jdt.core.prefs
+├── README (Pr. 3).md                   # задание Части 2 (проектирование интерфейсов)
+├── src/bikeproject/                    # исходный код проекта
+│   ├── Bike.java                       # базовый класс (реализует BikeParts)
+│   ├── RoadBike.java                   # шоссейный велосипед (реализует RoadParts)
+│   ├── MountainBike.java               # горный велосипед (реализует MountainParts)
+│   ├── BikeDriver.java                 # драйвер с методом main
+│   ├── BikeParts.java                  # интерфейс: константа MAKE и общие методы
+│   ├── RoadParts.java                  # интерфейс: константа terrain и методы шоссейного велосипеда
+│   └── MountainParts.java              # интерфейс: константа TERRAIN и методы горного велосипеда
+└── bin/bikeproject/                    # результат компиляции (*.class)
+```
+
 ---
 
-## 4. Ход выполнения работы
+## 4. Ход выполнения работы (Часть 1)
 
 ### 4.1 Абстрактный класс `Vehicle`
 
@@ -485,7 +533,7 @@ public class TestCar {
 
 ---
 
-## 5. Результат работы программы
+## 5. Результат работы программы (Часть 1)
 
 Команды для компиляции и запуска из каталога `java/pr_3`:
 
@@ -537,7 +585,467 @@ Electric Car{model='Tesla Model 3', license='В456ЕЕ 77', color='Красны�
 
 ---
 
-## 6. Заключение
+## 6. Часть 2. Проект `bikeproject`: ответы на вопросы и модернизация
+
+### 6.1 Исходный проект
+
+Проект из архива `bikeproject.zip` размещён в каталоге `java/pr_3/uploaded` (Eclipse-проект: исходники — `src/bikeproject`, результат сборки — `bin`). В исходной версии объявлено четыре класса:
+
+| Класс | Назначение | Поля | Конструкторы |
+|---|---|---|---|
+| `Bike` | базовый велосипед | `handleBars`, `frame`, `tyres`, `seatType` (`String`), `NumGears` (`int`), `make` (`final String`) | `Bike()`, `Bike(String, String, String, String, int)` |
+| `RoadBike` | шоссейный велосипед | `tyreWidth`, `postHeight` (`int`) | `RoadBike()`, `RoadBike(int postHeight)`, `RoadBike(String, String, String, String, int, int, int)` |
+| `MountainBike` | горный велосипед | `suspension`, `type` (`String`), `frameSize` (`int`) | `MountainBike()`, `MountainBike(String, String, String, String, int, String, String, int)` |
+| `BikeDriver` | драйвер с методом `main` | — | явных нет |
+
+Иерархия классов исходного проекта:
+
+```text
+Bike
+├── RoadBike
+└── MountainBike
+```
+
+### 6.2 Ответы на вопросы
+
+**1. Пример примитивного типа данных для хранения полей класса.**  
+Примитивный тип `int` используется для полей `NumGears` в классе `Bike`, `tyreWidth` и `postHeight` в классе `RoadBike`, `frameSize` в классе `MountainBike`. Поля типа `String` (`handleBars`, `frame`, `tyres`, `seatType`, `make`, `suspension`, `type`) примитивами не являются — это ссылочный тип.
+
+**2. Пример конкатенации строк.**  
+Конкатенация выполняется в методе `printDescription()` каждого класса при помощи оператора `+`:
+
+```java
+System.out.println("\n" + this.make + "\n"
+        + "This bike has " + this.handleBars + " handlebars on a "
+        + this.frame + " frame with " + this.NumGears + " gears."
+        + "\nIt has a " + this.seatType + " seat with " + this.tyres + " tyres.");
+```
+
+При конкатенации строки с числом (`this.NumGears`, `this.tyreWidth`, `this.postHeight`, `this.frameSize`) число автоматически преобразуется в строку, например: `"This Roadbike bike has " + this.tyreWidth + "mm tyres"`.
+
+**3. Имена объектов, созданных в программе.**
+
+| Переменная | Класс | Строка в `BikeDriver` |
+|---|---|---|
+| `bike1` | `RoadBike` | `RoadBike bike1 = new RoadBike();` |
+| `bike2` | `RoadBike` | `RoadBike bike2 = new RoadBike("drop", "tourer", "semi-grip", "comfort", 14, 25, 18);` |
+| `bike3` | `MountainBike` | `MountainBike bike3 = new MountainBike();` |
+| `bike4` | `Bike` | `Bike bike4 = new Bike();` |
+
+**4. Количество конструкторов у каждого класса.**
+
+| Класс | Количество конструкторов | Перечень |
+|---|---:|---|
+| `Bike` | 2 | `Bike()`, `Bike(String handleBars, String frame, String tyres, String seatType, int numGears)` |
+| `RoadBike` | 3 | `RoadBike()`, `RoadBike(int postHeight)`, `RoadBike(String, String, String, String, int, int tyreWidth, int postHeight)` |
+| `MountainBike` | 2 | `MountainBike()`, `MountainBike(String, String, String, String, int, String suspension, String type, int frameSize)` |
+| `BikeDriver` | 0 (явных) | используется неявный конструктор по умолчанию |
+
+**5. Наследование: суперкласс и подклассы.**  
+Суперкласс (родительский класс) — `Bike`: в нём объявлены общие для всех велосипедов поля (`handleBars`, `frame`, `tyres`, `seatType`, `NumGears`, `make`) и метод `printDescription()`.  
+Подклассы — `RoadBike` (`class RoadBike extends Bike`) и `MountainBike` (`class MountainBike extends Bike`): они наследуют поля и методы `Bike`, добавляют собственные поля и переопределяют `printDescription()`, дополняя описание родителя через `super.printDescription()`.  
+Класс `BikeDriver` в наследовании не участвует — он только создаёт объекты и вызывает их методы.
+
+**6. Примеры значений для стандартного велосипеда каждого типа.**
+
+| Поле | `bike1` — `RoadBike()` (стандарт) | `bike2` — `RoadBike(...)` (под заказ) | `bike3` — `MountainBike()` (стандарт) | `bike4` — `Bike()` (стандарт) |
+|---|---|---|---|---|
+| `make` | Oracle Cycles | Oracle Cycles | Oracle Cycles | Oracle Cycles |
+| `handleBars` | drop | drop | Bull Horn | `null` (не задано) |
+| `frame` | racing | tourer | Hardtail | `null` (не задано) |
+| `tyres` | tread less | semi-grip | Maxxis | `null` (не задано) |
+| `seatType` | razor | comfort | dropper | `null` (не задано) |
+| `NumGears` | 19 | 14 | 27 | 0 |
+| `tyreWidth` | 20 | 25 | — | — |
+| `postHeight` | 22 | 18 | — | — |
+| `suspension` | — | — | RockShox XC32 | — |
+| `type` | — | — | Pro | — |
+| `frameSize` | — | — | 19 | — |
+
+Конструктор по умолчанию каждого класса вызывает другой конструктор того же класса через `this(...)` и передаёт ему стандартный набор значений, поэтому «стандартный» велосипед отличается от «настроенного» только аргументами конструктора.
+
+### 6.3 Создание интерфейсов (пункты 1–3)
+
+**Пункт 1. Интерфейс `BikeParts`.** Название компании-производителя задано константой `MAKE`. Поля интерфейса неявно объявляются как `public static final`, поэтому значение `MAKE` изменить нельзя — требование «неизменяемое значение» выполняется. Тот же интерфейс определяет методы, обязательные для реализующего класса: `getMake()` (доступ к названию производителя) и `printDescription()` (вывод описания велосипеда).
+
+**Файл `src/bikeproject/BikeParts.java`:**
+
+```java
+package bikeproject;
+
+/**
+ * Интерфейс с общими требованиями к велосипеду.
+ *
+ * <p>Константа {@link #MAKE} хранит название компании-производителя
+ * велосипедов. В интерфейсах поля неявно объявляются как
+ * {@code public static final}, поэтому значение этой константы
+ * изменить нельзя.</p>
+ *
+ * <p>Интерфейс также определяет методы, которые обязан реализовать
+ * любой класс, его использующий.</p>
+ */
+public interface BikeParts {
+	/** Название компании-производителя велосипедов (неизменяемое значение). */
+	String MAKE = "Oracle Cycles";
+
+	/** Возвращает название компании-производителя. */
+	String getMake();
+
+	/** Выводит описание велосипеда. */
+	void printDescription();
+}
+```
+
+**Пункт 2. Интерфейс `MountainParts`.** Содержит константу `TERRAIN = "off_road"` и четыре метода: `getSuspension()`, `setSuspension(String newValue)`, `getType()`, `setType(String newValue)`.
+
+**Файл `src/bikeproject/MountainParts.java`:**
+
+```java
+package bikeproject;
+
+/**
+ * Интерфейс с характеристиками горного велосипеда.
+ *
+ * <p>Константа {@link #TERRAIN} хранит тип местности {@code "off_road"}
+ * (бездорожье). Методы интерфейса позволяют читать и изменять
+ * значения полей экземпляра.</p>
+ */
+public interface MountainParts {
+	/** Тип местности для горного велосипеда. */
+	String TERRAIN = "off_road";
+
+	/** Возвращает текущее значение поля suspension. */
+	String getSuspension();
+
+	/** Задаёт новое значение поля suspension. */
+	void setSuspension(String newValue);
+
+	/** Возвращает текущее значение поля type. */
+	String getType();
+
+	/** Задаёт новое значение поля type. */
+	void setType(String newValue);
+}
+```
+
+**Пункт 3. Интерфейс `RoadParts`.** Содержит константу `terrain = "track_racing"` и четыре метода: `getTyreWidth()`, `setTyreWidth(String newValue)`, `getPostHeight()`, `setPostHeight(String newValue)`.
+
+**Файл `src/bikeproject/RoadParts.java`:**
+
+```java
+package bikeproject;
+
+/**
+ * Интерфейс с характеристиками шоссейного велосипеда.
+ *
+ * <p>Константа {@link #terrain} хранит тип местности
+ * {@code "track_racing"} (шоссейные гонки). Методы интерфейса
+ * позволяют читать и изменять значения полей экземпляра.</p>
+ */
+public interface RoadParts {
+	/** Тип местности для шоссейного велосипеда. */
+	String terrain = "track_racing";
+
+	/** Возвращает текущее значение поля tyreWidth. */
+	int getTyreWidth();
+
+	/** Задаёт новое значение поля tyreWidth (строковый аргумент). */
+	void setTyreWidth(String newValue);
+
+	/** Возвращает текущее значение поля postHeight. */
+	int getPostHeight();
+
+	/** Задаёт новое значение поля postHeight (строковый аргумент). */
+	void setPostHeight(String newValue);
+}
+```
+
+### 6.4 Подключение интерфейсов к классам (пункты 4–6)
+
+**Пункт 4. Класс `Bike` реализует `BikeParts`.** В объявление класса добавлено `implements BikeParts`. Вместо строкового литерала `"Oracle Cycles"` в конструкторах теперь используется константа интерфейса `MAKE` (единая точка хранения названия производителя). Добавлен метод `getMake()`, а метод `printDescription()` изменён с `protected` на `public`: методы интерфейса неявно являются `public`, поэтому реализующий их метод нельзя сузить по видимости.
+
+**Файл `src/bikeproject/Bike.java`:**
+
+```java
+package bikeproject;
+
+public class Bike implements BikeParts {
+
+	private String handleBars, frame, tyres, seatType;
+	private int NumGears;
+	private final String make;
+	
+	public Bike(){	
+		this.make = MAKE;
+	}//end constructor
+	
+	public Bike(String handleBars, String frame, String tyres, String seatType, int numGears) {
+		this.handleBars = handleBars;
+		this.frame = frame;
+		this.tyres = tyres;
+		this.seatType = seatType;
+		NumGears = numGears;
+		this.make = MAKE;
+	}//end constructor
+
+	@Override
+	public String getMake() {
+		return this.make;
+	}//end method getMake
+
+	@Override
+	public void printDescription()
+	{
+		System.out.println("\n" + this.make + "\n" 
+				          + "This bike has " + this.handleBars + " handlebars on a " 
+				          + this.frame + " frame with " + this.NumGears + " gears."  
+				          + "\nIt has a " + this.seatType + " seat with " + this.tyres + " tyres.");
+	}//end method printDescription
+
+}//end class Bike
+```
+
+**Пункт 5. Класс `MountainBike` реализует `MountainParts`.** В объявление класса добавлено `implements MountainParts`, реализованы четыре метода интерфейса: геттеры возвращают текущие значения полей `suspension` и `type`, сеттеры записывают в эти поля значение аргумента `newValue`.
+
+**Файл `src/bikeproject/MountainBike.java`:**
+
+```java
+package bikeproject;
+
+public class MountainBike extends Bike implements MountainParts{
+
+	private String suspension, type;
+	private int frameSize;
+	
+	public MountainBike()
+	{
+		this("Bull Horn", "Hardtail", "Maxxis", "dropper", 27, "RockShox XC32", "Pro", 19);
+	}//end constructor
+	
+    public MountainBike(String handleBars, String frame, String tyres, String seatType, int numGears, 
+    		            String suspension, String type, int frameSize) {
+		super(handleBars, frame, tyres, seatType, numGears);
+		this.suspension = suspension;
+		this.type = type;
+		this.frameSize = frameSize;
+	}//end constructor
+
+	@Override
+	public String getSuspension() {
+		return this.suspension;
+	}//end method getSuspension
+
+	@Override
+	public void setSuspension(String newValue) {
+		this.suspension = newValue;
+	}//end method setSuspension
+
+	@Override
+	public String getType() {
+		return this.type;
+	}//end method getType
+
+	@Override
+	public void setType(String newValue) {
+		this.type = newValue;
+	}//end method setType
+    
+	public void printDescription()
+	{
+		super.printDescription();
+		System.out.println("This mountain bike is a " + this.type + " bike and has a " + this.suspension + " suspension and a frame size of " + this.frameSize + "inches.");
+		
+	}//end method printDescription
+}//end class MountainBike
+```
+
+**Пункт 6. Класс `RoadBike` реализует `RoadParts`.** В объявление класса добавлено `implements RoadParts`, реализованы четыре метода интерфейса. Поля `tyreWidth` и `postHeight` имеют тип `int`, а сеттеры по условию принимают строковый аргумент `newValue`, поэтому внутри сеттеров выполняется преобразование строки в число: `Integer.parseInt(newValue.trim())`. Геттеры возвращают текущие значения полей.
+
+**Файл `src/bikeproject/RoadBike.java`:**
+
+```java
+package bikeproject;
+
+public class RoadBike extends Bike implements RoadParts{
+	
+	private int  tyreWidth, postHeight;
+	
+	public RoadBike()
+	{
+		this("drop", "racing", "tread less", "razor", 19, 20, 22);
+	}//end constructor
+	
+	public RoadBike(int postHeight)
+	{
+		this("drop", "racing", "tread less", "razor", 19, 20, postHeight);
+	}//end constructor
+		
+	public RoadBike(String handleBars, String frame, String tyres, String seatType, int numGears,
+			int tyreWidth, int postHeight) {
+		super(handleBars, frame, tyres, seatType, numGears);
+		this.tyreWidth = tyreWidth;
+		this.postHeight = postHeight;
+	}//end constructor
+
+	@Override
+	public int getTyreWidth() {
+		return this.tyreWidth;
+	}//end method getTyreWidth
+
+	@Override
+	public void setTyreWidth(String newValue) {
+		this.tyreWidth = Integer.parseInt(newValue.trim());
+	}//end method setTyreWidth
+
+	@Override
+	public int getPostHeight() {
+		return this.postHeight;
+	}//end method getPostHeight
+
+	@Override
+	public void setPostHeight(String newValue) {
+		this.postHeight = Integer.parseInt(newValue.trim());
+	}//end method setPostHeight
+
+	public void printDescription()
+	{
+		super.printDescription();
+		System.out.println("This Roadbike bike has " + this.tyreWidth + "mm tyres and a post height of " + this.postHeight + ".");
+	}//end method printDescription
+}//end class RoadBike
+```
+
+### 6.5 Изменение драйвера (пункты 8–9)
+
+В нижней части метода `main` после вывода всех четырёх велосипедов добавлено:
+
+- **пункт 8** — изменение высоты подседельного штыря `bike1` с 22 на 20: `bike1.setPostHeight("20");` (значение передаётся строкой, как требует интерфейс `RoadParts`);
+- **пункт 9** — вывод значений `bike1` (`getMake()`, `getTyreWidth()`, `getPostHeight()`) и его описания для подтверждения изменения.
+
+**Файл `src/bikeproject/BikeDriver.java`:**
+
+```java
+package bikeproject;
+
+public class BikeDriver {
+
+	public static void main(String[] args) {
+		
+		RoadBike bike1 = new RoadBike();
+		RoadBike bike2 = new RoadBike("drop", "tourer", "semi-grip", "comfort", 14, 25, 18);		
+		MountainBike bike3 = new MountainBike();
+		Bike bike4 = new Bike();
+		
+		bike1.printDescription();
+		bike2.printDescription();
+		bike3.printDescription();
+		bike4.printDescription();
+
+		// Пункт 8: для bike1 высота подседельного штыря изменяется с 22 на 20
+		bike1.setPostHeight("20");
+
+		// Пункт 9: вывод значений bike1 для подтверждения изменения
+		System.out.println("\nbike1 values after change:");
+		System.out.println("make: " + bike1.getMake());
+		System.out.println("tyreWidth: " + bike1.getTyreWidth());
+		System.out.println("postHeight: " + bike1.getPostHeight());
+		bike1.printDescription();
+	}//end method main
+
+}//end class BikeDriver
+```
+
+### 6.6 Компиляция и запуск (пункты 7 и 10)
+
+```sh
+cd java/pr_3/uploaded
+javac -encoding UTF-8 -d bin src/bikeproject/*.java
+java -cp bin bikeproject.BikeDriver
+```
+
+---
+
+## 7. Результат работы программы (Часть 2)
+
+### 7.1 Проверка совместимости (пункт 7)
+
+После подключения интерфейсов программа запускается и первые четыре вызова `printDescription()` дают **точно такой же** вывод, что и исходная версия: содержимое полей не изменилось, а константа `MAKE` интерфейса `BikeParts` хранит ту же строку `"Oracle Cycles"`, которая раньше была записана в конструкторах литералом. Построчное сравнение вывода исходной и модернизированной версий (`diff`) различий не выявило.
+
+Вывод, который дают первые четыре вызова `printDescription()` (он полностью совпадает с выводом исходной версии программы):
+
+```text
+
+Oracle Cycles
+This bike has drop handlebars on a racing frame with 19 gears.
+It has a razor seat with tread less tyres.
+This Roadbike bike has 20mm tyres and a post height of 22.
+
+Oracle Cycles
+This bike has drop handlebars on a tourer frame with 14 gears.
+It has a comfort seat with semi-grip tyres.
+This Roadbike bike has 25mm tyres and a post height of 18.
+
+Oracle Cycles
+This bike has Bull Horn handlebars on a Hardtail frame with 27 gears.
+It has a dropper seat with Maxxis tyres.
+This mountain bike is a Pro bike and has a RockShox XC32 suspension and a frame size of 19inches.
+
+Oracle Cycles
+This bike has null handlebars on a null frame with 0 gears.
+It has a null seat with null tyres.
+```
+
+### 7.2 Итоговый вывод (пункты 8–10)
+
+После выполнения пункта 8 высота подседельного штыря `bike1` равна 20 вместо 22, а пункт 9 выводит значения `bike1` для подтверждения изменения:
+
+```text
+
+Oracle Cycles
+This bike has drop handlebars on a racing frame with 19 gears.
+It has a razor seat with tread less tyres.
+This Roadbike bike has 20mm tyres and a post height of 22.
+
+Oracle Cycles
+This bike has drop handlebars on a tourer frame with 14 gears.
+It has a comfort seat with semi-grip tyres.
+This Roadbike bike has 25mm tyres and a post height of 18.
+
+Oracle Cycles
+This bike has Bull Horn handlebars on a Hardtail frame with 27 gears.
+It has a dropper seat with Maxxis tyres.
+This mountain bike is a Pro bike and has a RockShox XC32 suspension and a frame size of 19inches.
+
+Oracle Cycles
+This bike has null handlebars on a null frame with 0 gears.
+It has a null seat with null tyres.
+
+bike1 values after change:
+make: Oracle Cycles
+tyreWidth: 20
+postHeight: 20
+
+Oracle Cycles
+This bike has drop handlebars on a racing frame with 19 gears.
+It has a razor seat with tread less tyres.
+This Roadbike bike has 20mm tyres and a post height of 20.
+```
+
+Сравнение с первоначальным выводом: у `bike1` изменилась только высота штыря (`post height of 22` → `post height of 20`), описание остальных велосипедов (`bike2`, `bike3`, `bike4`) не изменилось.
+
+| Пункт задания | Что сделано | Где видно в выводе |
+|---|---|---|
+| 7 | Программа после подключения интерфейсов работает так же, как раньше | первые четыре блока вывода совпадают с исходной версией |
+| 8 | Высота штыря `bike1` изменена на 20 вместо 22 | `postHeight: 20` и `post height of 20.` |
+| 9 | Значения `bike1` выведены на экран | блок `bike1 values after change:` |
+| 10 | Программа повторно запущена и протестирована | полный вывод в п. 7.2 |
+
+> 📸 **[СКРИНШОТ №2 — Часть 2. Проект `bikeproject`]**  
+> *Вставьте сюда скриншот запуска `bikeproject.BikeDriver` в терминале / Eclipse (вывод четырёх велосипедов, затем блок `bike1 values after change:` и повторное описание `bike1` с высотой штыря 20).*
+
+---
+
+## 8. Заключение
 
 В ходе выполнения практической работы №3 были изучены и практически применены механизмы объектно-ориентированного программирования в Java:
 
@@ -546,5 +1054,10 @@ Electric Car{model='Tesla Model 3', license='В456ЕЕ 77', color='Красны�
 3. **Интерфейс.** Интерфейс `ElectricVehicle` задаёт контракт поведения электромобиля (`getBatteryCapacity()` и `setBatteryCapacity()`). Класс `ElectricCar` реализует этот интерфейс, предоставляя конкретную реализацию обоих методов и поле `batteryCapacity`.
 4. **Наследование и инкапсуляция.** Построена иерархия `Vehicle -> Car -> ElectricCar`. Поля класса `Vehicle` скрыты модификатором `private` и доступны через геттеры и сеттеры, а поле `engineType` объявлено `protected`, что позволяет задавать тип двигателя в конструкторах наследников (`"Combustion"` для `Car` и `"Electric"` для `ElectricCar`).
 5. **Полиморфизм.** В тестовом классе продемонстрирована работа с объектами через ссылку типа интерфейса `ElectricVehicle` и через массив ссылок базового типа `Vehicle[]`, что позволяет единообразно вызывать переопределённые методы `vehicleType()` и `toString()`.
+6. **Интерфейсы как контракт поведения.** В Части 2 в проекте `bikeproject` созданы интерфейсы `BikeParts`, `MountainParts` и `RoadParts`. Классы `Bike`, `MountainBike` и `RoadBike` реализуют соответствующие интерфейсы (`implements`), предоставляя конкретную реализацию всех объявленных методов.
+7. **Константы интерфейса.** Название компании-производителя вынесено в константу `MAKE` интерфейса `BikeParts`, а типы местности — в константы `TERRAIN` и `terrain` интерфейсов `MountainParts` и `RoadParts`. Поля интерфейса неявно являются `public static final`, поэтому эти значения изменить нельзя.
+8. **Сохранение поведения при рефакторинге.** Подключение интерфейсов не изменило вывод программы: исходная и модернизированная версии `bikeproject` выводят одинаковые описания четырёх велосипедов. После этого высота подседельного штыря `bike1` изменена с 22 на 20 через метод интерфейса `setPostHeight`, и результат изменения подтверждён выводом значений `bike1` на экран.
 
 Таким образом, все требования постановки задачи выполнены: программа организована по пакетам, содержит абстрактный класс и интерфейс, а тестовый класс демонстрирует создание объектов, изменение их свойств, получение ёмкости батареи и вывод описаний методом `toString()`.
+
+В Части 2, в свою очередь, в проект `bikeproject` добавлены интерфейсы `BikeParts`, `MountainParts` и `RoadParts` с константами и набором методов, реализованными в классах `Bike`, `MountainBike` и `RoadBike`, а работоспособность программы проверена запуском. Таким образом, обе части практической работы №3 выполнены полностью.
