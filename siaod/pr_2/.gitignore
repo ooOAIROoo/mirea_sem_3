@@ -1,5 +1,5 @@
-# Локальные результаты сборки CMake и IDE.
-/build/
-/build-*/
-/cmake-build-*/
-/.vs/
+# Локальные результаты сборки CMake и IDE (в любой из частей).
+build/
+build-*/
+cmake-build-*/
+.vs/
