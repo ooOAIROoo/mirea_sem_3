@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ПР №3 — Docker Compose: Apache + MySQL + Flask</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Собственный сайт в контейнере Apache</h1>
+    <p class="sub">
+        НИАСПО · «Настройка и администрирование сервисного программного обеспечения» ·
+        практическая работа №3
+    </p>
+</header>
+
+<main>
+    <section class="card">
+        <h2>Что запущено</h2>
+        <ul>
+            <li><b>web</b> — этот сайт, Apache httpd 2.4 в контейнере;</li>
+            <li><b>db</b> — СУБД MySQL 8.0 с базой <code>notes</code>;</li>
+            <li><b>app</b> — собственное приложение на Flask, пишет и читает записи в MySQL;</li>
+            <li><b>backup</b> — контейнер, который по расписанию делает дампы базы.</li>
+        </ul>
+        <p class="hint">
+            Ниже форма: она отправляет POST-запрос на <code>/api/notes</code>.
+            Apache проксирует его в контейнер приложения, а тот сохраняет запись в MySQL.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>Журнал записей (таблица notes)</h2>
+
+        <form id="note-form">
+            <label for="title">Заголовок</label>
+            <input id="title" name="title" maxlength="200" required
+                   placeholder="Например: проверил связку Apache → Flask → MySQL">
+
+            <label for="body">Текст</label>
+            <textarea id="body" name="body" rows="3" required
+                      placeholder="Произвольный текст записи"></textarea>
+
+            <button type="submit">Сохранить в MySQL</button>
+        </form>
+
+        <p id="status" class="status"></p>
+
+        <table id="notes">
+            <thead>
+            <tr><th>#</th><th>Заголовок</th><th>Текст</th><th>Создано</th></tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    <p>Сайт отдаётся Apache из каталога <code>/usr/local/apache2/htdocs</code> внутри контейнера.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
