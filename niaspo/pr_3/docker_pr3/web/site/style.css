@@ -1,0 +1,120 @@
+:root {
+    --bg: #0f1720;
+    --card: #17222e;
+    --text: #e6edf3;
+    --muted: #9fb0c0;
+    --accent: #4da3ff;
+    --ok: #3fb950;
+    --err: #f85149;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 0 16px 48px;
+    font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+header {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 0 8px;
+}
+
+h1 { font-size: 1.7rem; margin: 0 0 8px; }
+h2 { font-size: 1.15rem; margin: 0 0 12px; }
+
+.sub, .hint { color: var(--muted); font-size: 0.92rem; }
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    gap: 16px;
+}
+
+.card {
+    background: var(--card);
+    border: 1px solid #24313d;
+    border-radius: 10px;
+    padding: 20px 22px;
+}
+
+ul { padding-left: 20px; margin: 0 0 12px; }
+
+code {
+    background: #0b1620;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 0.88em;
+}
+
+form {
+    display: grid;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+label { font-size: 0.85rem; color: var(--muted); }
+
+input, textarea {
+    width: 100%;
+    padding: 9px 11px;
+    border-radius: 7px;
+    border: 1px solid #2b3a48;
+    background: #0b1620;
+    color: var(--text);
+    font: inherit;
+}
+
+input:focus, textarea:focus {
+    outline: 2px solid var(--accent);
+    border-color: transparent;
+}
+
+button {
+    justify-self: start;
+    padding: 9px 18px;
+    border: 0;
+    border-radius: 7px;
+    background: var(--accent);
+    color: #06121d;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover { filter: brightness(1.08); }
+
+.status { min-height: 1.4em; font-size: 0.9rem; }
+.status.ok { color: var(--ok); }
+.status.err { color: var(--err); }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px 10px;
+    border-bottom: 1px solid #24313d;
+    vertical-align: top;
+}
+
+th { color: var(--muted); font-weight: 600; }
+
+footer {
+    max-width: 900px;
+    margin: 24px auto 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 620px) {
+    th:nth-child(3), td:nth-child(3) { display: none; }
+}

@@ -1,0 +1,7 @@
+Flask==3.0.3
+PyMySQL==1.1.1
+# MySQL 8 по умолчанию аутентифицирует через caching_sha2_password,
+# а PyMySQL без TLS требует для этого пакет cryptography.
+# Без него приложение падает с RuntimeError при первом же подключении.
+cryptography==43.0.3
+gunicorn==22.0.0

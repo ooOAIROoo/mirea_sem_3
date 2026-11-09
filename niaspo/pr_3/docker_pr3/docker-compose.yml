@@ -1,0 +1,129 @@
+# Практическая работа №3 «Создание контейнеров в Docker»
+# Дисциплина «Настройка и администрирование сервисного программного обеспечения»
+#
+# Состав стека:
+#   web    (Apache httpd)  — свой сайт + реверс-прокси /api/ на приложение
+#   db     (MySQL 8.0)     — СУБД для приложения
+#   app    (Flask)         — собственное приложение, читает/пишет данные в MySQL
+#   backup (Alpine)        — служебный контейнер: резервные копии БД по расписанию
+#
+# Запуск:   docker compose up -d --build
+# Статус:   docker compose ps
+# Логи:     docker compose logs -f web app db backup
+# Стоп:     docker compose down            (данные остаются в томах)
+# Удаление: docker compose down -v         (вместе с томами)
+
+name: docker_pr3
+
+services:
+  # ---------------------------------------------------------------------------
+  # Задача 1. Веб-сервер Apache со своим сайтом
+  # ---------------------------------------------------------------------------
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    image: pr3/web:1.0
+    container_name: pr3_web
+    ports:
+      - "${WEB_PORT:-8080}:80"
+    depends_on:
+      app:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - pr3_net
+
+  # ---------------------------------------------------------------------------
+  # Задача 2. СУБД MySQL
+  # ---------------------------------------------------------------------------
+  db:
+    image: mysql:8.0
+    container_name: pr3_db
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      # root@'%' нужен, чтобы служебный контейнер backup мог снимать дамп
+      # по сети (по умолчанию образ создаёт только root@localhost).
+      # В рабочем окружении вместо root используют отдельного
+      # пользователя с минимальными правами на чтение дампа.
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: "${MYSQL_DATABASE}"
+      MYSQL_USER: "${MYSQL_USER}"
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+    volumes:
+      # именованный том — данные переживают перезапуск и пересоздание контейнера
+      - db_data:/var/lib/mysql
+      # скрипты инициализации выполняются только при первом создании тома
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 40s
+    restart: unless-stopped
+    networks:
+      - pr3_net
+
+  # ---------------------------------------------------------------------------
+  # Задача 3. Собственное приложение в контейнере (Flask + MySQL)
+  # ---------------------------------------------------------------------------
+  app:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    image: pr3/app:1.0
+    container_name: pr3_app
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: "${MYSQL_DATABASE}"
+      DB_USER: "${MYSQL_USER}"
+      DB_PASSWORD: "${MYSQL_PASSWORD}"
+    ports:
+      # порт приложения открыт наружу только для отладки;
+      # основной вход — через Apache (http://localhost:8080/api/…)
+      - "${APP_PORT:-5000}:5000"
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - pr3_net
+
+  # ---------------------------------------------------------------------------
+  # Задача 4. Служебный контейнер: автоматическое резервное копирование БД
+  # ---------------------------------------------------------------------------
+  backup:
+    build:
+      context: ./backup
+      dockerfile: Dockerfile
+    image: pr3/backup:1.0
+    container_name: pr3_backup
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: "${MYSQL_DATABASE}"
+      DB_USER: root
+      DB_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+      BACKUP_INTERVAL_SECONDS: "${BACKUP_INTERVAL_SECONDS:-86400}"
+      BACKUP_KEEP: "${BACKUP_KEEP:-7}"
+    volumes:
+      - backup_data:/backup
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - pr3_net
+
+volumes:
+  db_data:
+  backup_data:
+
+networks:
+  pr3_net:
+    driver: bridge
