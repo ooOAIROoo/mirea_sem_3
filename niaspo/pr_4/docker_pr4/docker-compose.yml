@@ -1,0 +1,54 @@
+# Практическая работа №4 (часть 1)
+# «Межконтейнерное взаимодействие docker-контейнеров через localhost»
+# Дисциплина «Настройка и администрирование сервисного программного обеспечения»
+#
+# Два контейнера, каждый слушает localhost на своём порту:
+#   gateway (контейнер №1) — localhost:8081, принимает запрос пользователя
+#   compute (контейнер №2) — localhost:8082, обрабатывает запрос и возвращает результат
+#
+# Запуск:  docker compose up -d --build
+# Статус:  docker compose ps
+# Логи:    docker compose logs -f
+# Стоп:    docker compose down
+
+name: docker_pr4
+
+services:
+  # ---------------------------------------------------------------------------
+  # Контейнер №1: шлюз, слушает localhost:8081
+  # ---------------------------------------------------------------------------
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    image: pr4/gateway:1.0
+    container_name: pr4_gateway
+    environment:
+      PORT: "${GATEWAY_PORT:-8081}"
+      # именно localhost, потому что контейнеры в сети хоста (см. network_mode);
+      # порт подставляется тот же, что у контейнера №2
+      NEXT_URL: "http://localhost:${COMPUTE_PORT:-8082}"
+      SERVICE_NAME: "Контейнер №1"
+    # Сеть хоста: у контейнера нет собственного сетевого пространства имён,
+    # поэтому его localhost — это localhost машины. Так два контейнера видят
+    # друг друга по localhost, различаясь только портами (как требует задание).
+    network_mode: host
+    depends_on:
+      compute:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ---------------------------------------------------------------------------
+  # Контейнер №2: обработчик, слушает localhost:8082
+  # ---------------------------------------------------------------------------
+  compute:
+    build:
+      context: ./compute
+      dockerfile: Dockerfile
+    image: pr4/compute:1.0
+    container_name: pr4_compute
+    environment:
+      PORT: "${COMPUTE_PORT:-8082}"
+      SERVICE_NAME: "Контейнер №2"
+    network_mode: host
+    restart: unless-stopped

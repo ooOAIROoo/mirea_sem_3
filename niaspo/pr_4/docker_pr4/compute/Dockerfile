@@ -1,0 +1,28 @@
+# Контейнер №2 — «вычислитель». Слушает localhost:8082.
+FROM python:3.12-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PORT=8082 \
+    SERVICE_NAME="Контейнер №2"
+
+WORKDIR /app
+
+# зависимости отдельным слоем — кэш не сбрасывается при правке app.py
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY app.py ./
+
+# приложение работает не от root
+RUN useradd --create-home --uid 10001 appuser && chown -R appuser:appuser /app
+USER appuser
+
+# порт слушается внутри сети контейнера; при network_mode: host
+# он же становится портом хоста
+EXPOSE 8082
+
+HEALTHCHECK --interval=5s --timeout=3s --retries=5 --start-period=5s \
+    CMD python -c "import os,urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:'+os.environ['PORT']+'/health', timeout=2).status == 200 else 1)"
+
+CMD ["sh", "-c", "exec gunicorn --bind 0.0.0.0:${PORT} --workers 1 --access-logfile - app:app"]
