@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ПР4 — межконтейнерное взаимодействие через localhost</title>
+<style>
+  :root { --bg:#0f1419; --card:#161e26; --line:#26333f; --text:#e6edf3; --dim:#8b9bab;
+          --accent:#4fa3ff; --ok:#3fb950; --err:#f85149; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:32px 20px; background:var(--bg); color:var(--text);
+         font:15px/1.6 "Segoe UI", system-ui, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; }
+  h1 { font-size:20px; margin:0 0 6px; font-weight:600; }
+  p.sub { color:var(--dim); margin:0 0 24px; font-size:13px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px;
+          padding:20px; margin-bottom:16px; }
+  .chain { display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+           font-size:13px; color:var(--dim); }
+  .node { border:1px solid var(--line); border-radius:8px; padding:8px 12px; color:var(--text); }
+  .node b { display:block; font-size:13px; }
+  .node span { font-size:11px; color:var(--dim); }
+  .node.self { border-color:var(--accent); }
+  .arrow { color:var(--accent); }
+  textarea { width:100%; min-height:90px; resize:vertical; background:#0b1015; color:var(--text);
+             border:1px solid var(--line); border-radius:8px; padding:12px; font:14px/1.5 inherit; }
+  textarea:focus { outline:none; border-color:var(--accent); }
+  .row { display:flex; gap:10px; align-items:center; margin-top:12px; }
+  button { background:var(--accent); color:#04121f; border:0; border-radius:8px; padding:10px 18px;
+           font:600 14px inherit; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:default; }
+  button.ghost { background:transparent; color:var(--dim); border:1px solid var(--line); font-weight:400; }
+  pre { background:#0b1015; border:1px solid var(--line); border-radius:8px; padding:14px;
+        overflow-x:auto; font:12.5px/1.55 "JetBrains Mono", Consolas, monospace; margin:0;
+        white-space:pre-wrap; word-break:break-word; }
+  .status { font-size:13px; margin-left:auto; }
+  .ok { color:var(--ok); } .err { color:var(--err); }
+  table { width:100%; border-collapse:collapse; font-size:13.5px; margin-top:4px; }
+  td { padding:6px 0; border-bottom:1px solid var(--line); }
+  td:first-child { color:var(--dim); width:42%; }
+  td:last-child { font-family:"JetBrains Mono", Consolas, monospace; word-break:break-all; }
+  h2 { font-size:14px; margin:0 0 12px; font-weight:600; color:var(--dim);
+       text-transform:uppercase; letter-spacing:.04em; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Межконтейнерное взаимодействие через localhost</h1>
+  <p class="sub">Практическая работа №4 · запрос проходит через два контейнера</p>
+
+  <div class="card">
+    <div class="chain">
+      <div class="node"><b>Пользователь</b><span>браузер</span></div>
+      <div class="arrow">запрос &rarr;</div>
+      <div class="node self"><b>{{ service }}</b><span>localhost:{{ port }}</span></div>
+      <div class="arrow">&rarr;</div>
+      <div class="node"><b>Контейнер №2</b><span>{{ next_url }}</span></div>
+      <div class="arrow">&rarr;</div>
+      <div class="node"><b>результат</b><span>обратно в №1</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Запрос</h2>
+    <textarea id="text" placeholder="Введите текст, который нужно обработать контейнером №2…">Контейнеры общаются через localhost на разных портах.</textarea>
+    <div class="row">
+      <button id="send">Отправить запрос</button>
+      <button id="health" class="ghost">Проверить связь с №2</button>
+      <span id="status" class="status"></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Ответ</h2>
+    <pre id="out">— результат появится здесь —</pre>
+  </div>
+</main>
+
+<script>
+const out = document.getElementById('out');
+const status = document.getElementById('status');
+
+function show(el, cls, text) { el.className = 'status ' + cls; el.textContent = text; }
+
+document.getElementById('send').onclick = async () => {
+  const text = document.getElementById('text').value;
+  if (!text.trim()) { show(status, 'err', 'поле пустое'); return; }
+  out.textContent = 'запрос отправлен…';
+  show(status, '', 'идёт запрос: №1 → №2');
+  try {
+    const r = await fetch('/api/process', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({text})
+    });
+    const data = await r.json();
+    out.textContent = JSON.stringify(data, null, 2);
+    show(status, r.ok ? 'ok' : 'err', r.ok ? 'готово, ' + data.total_ms + ' мс' : 'ошибка ' + r.status);
+  } catch (e) {
+    out.textContent = String(e);
+    show(status, 'err', 'сеть недоступна');
+  }
+};
+
+document.getElementById('health').onclick = async () => {
+  show(status, '', 'проверка…');
+  try {
+    const r = await fetch('/chain');
+    const data = await r.json();
+    out.textContent = JSON.stringify(data, null, 2);
+    show(status, r.ok ? 'ok' : 'err', r.ok ? 'контейнер №2 доступен' : 'контейнер №2 недоступен');
+  } catch (e) {
+    out.textContent = String(e);
+    show(status, 'err', 'ошибка');
+  }
+};
+</script>
+</body>
+</html>
