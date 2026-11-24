@@ -1,13 +1,4 @@
----
-lang: ru-RU
-toc-title: СОДЕРЖАНИЕ
----
-
-::: {custom-style="StructuralHeading"}
-ВВЕДЕНИЕ
-:::
-
-Настоящий отчёт посвящён выполнению практической работы № 4 по дисциплине «Программирование на языке Java» на тему «ООП в Java. Исключения».
+# Введение
 
 Целью работы является изучение механизмов наследования классов, проектирования абстрактных классов и интерфейсов (`Comparable`, `Colorable`), а также освоение встроенных и пользовательских исключений в языке программирования Java.
 
@@ -253,7 +244,7 @@ public class TestTriangleTask1 {
 }
 ```
 
-Консольный вывод при вводе сторон `3`, `4`, `5`, цвета `красный` и признака заливки `true` приведён в листинге 5, место для скриншота обозначено на рисунке 1.
+Консольный вывод при вводе сторон `3`, `4`, `5`, цвета `красный` и признака заливки `true` приведён в листинге 5, и на рисунке 1.
 
 ::: {custom-style="ListingCaption"}
 Листинг 5 — Вывод программы app.TestTriangleTask1
@@ -272,7 +263,7 @@ public class TestTriangleTask1 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image.png>){width=15.5cm}
+![](<screenshots/20261124_13h53m53s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -441,7 +432,7 @@ public class TestTriangleTask2 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image copy.png>){width=15.5cm}
+![](<screenshots/20261124_14h00m20s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -872,7 +863,7 @@ public class TestGeometricTask3 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image copy 2.png>){width=15.5cm}
+![](<screenshots/20261124_14h06m11s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -1018,7 +1009,7 @@ public class TestColorableTask4 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image copy 3.png>){width=15.5cm}
+![](<screenshots/20261124_14h08m26s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -1163,7 +1154,7 @@ public class MonthDaysLeapTask2 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image copy 4.png>){width=15.5cm}
+![](<screenshots/20261124_14h14m12s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
