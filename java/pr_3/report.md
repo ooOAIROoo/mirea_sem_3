@@ -1,10 +1,25 @@
-## 1. ВВЕДЕНИЕ
+---
+lang: ru-RU
+toc-title: СОДЕРЖАНИЕ
+---
 
-### 1.1 Цель работы
+::: {custom-style="StructuralHeading"}
+ВВЕДЕНИЕ
+:::
 
-Изучить организацию программы по пакетам (`package`), создание и использование абстрактных классов (`abstract class`) и интерфейсов (`interface`), наследование классов и реализацию интерфейсов, а также полиморфизм при работе с объектами через ссылки базового типа и типа интерфейса.
+Настоящий отчёт посвящён выполнению практической работы № 3 по дисциплине «Программирование на языке Java» на тему «Объекты и классы: абстрактные классы и интерфейсы, пакеты».
 
-### 1.2 Краткие теоретические сведения
+Цель работы — изучить организацию программы по пакетам, применение абстрактных классов и интерфейсов, наследование и полиморфизм.
+
+Для достижения цели решаются следующие задачи:
+
+- разработать иерархию транспортных средств и интерфейс электромобиля;
+- проверить создание объектов, изменение их свойств и полиморфный вывод;
+- изучить устройство проекта велосипедов `bikeproject` и ответить на вопросы задания;
+- добавить интерфейсы характеристик велосипедов и реализовать их методы;
+- изменить высоту подседельного штыря `bike1` с 22 на 20 и подтвердить изменение выводом.
+
+# 1 Теоретические сведения
 
 **Пакеты (`package`).** Пакет — это механизм группировки логически связанных классов и интерфейсов. Пакет задаётся директивой `package` в первой строке исходного файла, а его имя соответствует структуре каталогов: класс из пакета `vehicles` размещается в каталоге `vehicles`. Классы других пакетов подключаются директивой `import`. Использование пакетов позволяет избежать конфликтов имён и управлять видимостью классов.
 
@@ -13,6 +28,8 @@
 **Интерфейсы.** Интерфейс (`interface`) описывает контракт поведения, которому должен соответствовать класс. Методы интерфейса неявно являются `public abstract`, а поля — `public static final` (константами). Класс реализует интерфейс с помощью ключевого слова `implements` и обязан реализовать все методы интерфейса; при этом один класс может реализовывать несколько интерфейсов. Начиная с Java 8 интерфейсы могут также содержать методы с реализацией (`default` и `static`).
 
 **Сравнение абстрактного класса и интерфейса:**
+
+Table: Таблица 1 — Сравнение абстрактного класса и интерфейса
 
 | Свойство | Абстрактный класс | Интерфейс |
 |---|---|---|
@@ -26,8 +43,7 @@
 
 **Полиморфизм.** Ссылка на абстрактный класс `Vehicle` может указывать на объект `Car` или `ElectricCar`; при вызове переопределённых методов `vehicleType()` и `toString()` выполняется метод фактического класса объекта (динамическое связывание). Аналогично ссылка на интерфейс `ElectricVehicle` может указывать на объект `ElectricCar`, что позволяет работать с методами `getBatteryCapacity()` и `setBatteryCapacity()`, не зная конкретного класса объекта.
 
-
-## 2. Постановка задачи
+# 2 Постановка задачи и структура проекта
 
 **Практическая работа №3. Объекты и классы: абстрактные классы и интерфейсы, пакеты.**
 
@@ -56,6 +72,7 @@
 
 Импортируйте файл `bikeproject.zip` в папку на вашем компьютере — проект размещён в каталоге [`java/pr_3/uploaded`](./uploaded) (Eclipse-проект `bikeproject`).
 
+Полезные ссылки: [Интерфейсы](https://docs.oracle.com/javase/tutorial/java/concepts/interface.html), [Методы интерфейса](https://docs.oracle.com/javase/tutorial/java/IandI/override.html), [Использование `super`](https://docs.oracle.com/javase/tutorial/java/IandI/super.html).
 
 **Ответьте на следующие вопросы:**
 - Приведите пример примитивного типа данных, который используется для хранения полей в классе.
@@ -78,65 +95,54 @@
 10. Запустите и протестируйте свою программу.
 
 
-## 3. Структура проекта
+## 2.1 Файлы проекта
 
-```text
-java/pr_3/
-├── README.md                     # Описание структуры проекта, файлов и запуска
-├── report.md                     # Отчёт о проделанной работе
-├── vehicles/                     # Пакет vehicles
-│   ├── Vehicle.java              # Абстрактный класс транспортного средства
-│   ├── Car.java                  # Класс обычного автомобиля (наследует Vehicle)
-│   ├── ElectricVehicle.java      # Интерфейс электромобиля
-│   └── ElectricCar.java          # Класс электромобиля (наследует Car, реализует ElectricVehicle)
-└── app/                          # Пакет app
-    └── TestCar.java              # Тестовый класс с методом main
-```
+Исходный код первой части расположен в пакетах `vehicles` и `app`; вторая часть находится в `uploaded/src/bikeproject`. Соответствие файлов их назначению представлено в таблице 2.
 
-| Требование задания | Файл |
+Table: Таблица 2 — Файлы практической работы № 3
+
+| Файл | Назначение |
 |---|---|
-| Пакет `vehicles` | `vehicles/Vehicle.java`, `vehicles/Car.java`, `vehicles/ElectricVehicle.java`, `vehicles/ElectricCar.java` |
-| Пакет `app` | `app/TestCar.java` |
-| Абстрактный класс `Vehicle`, поля и методы доступа, `toString()` | `vehicles/Vehicle.java` |
-| Абстрактный метод `vehicleType()` | `vehicles/Vehicle.java` (реализация — в `Car.java` и `ElectricCar.java`) |
-| Класс `Car`, тип двигателя `"Combustion"` | `vehicles/Car.java` |
-| Интерфейс `ElectricVehicle` | `vehicles/ElectricVehicle.java` |
-| Класс `ElectricCar`, поле `batteryCapacity`, тип двигателя `"Electric"` | `vehicles/ElectricCar.java` |
-| Тестирование программы | `app/TestCar.java` |
+| `vehicles/Vehicle.java` | Абстрактный класс транспортного средства |
+| `vehicles/ElectricVehicle.java` | Интерфейс электромобиля |
+| `vehicles/Car.java` | Автомобиль с двигателем внутреннего сгорания |
+| `vehicles/ElectricCar.java` | Электромобиль, реализующий ElectricVehicle |
+| `app/TestCar.java` | Проверка транспортных средств |
+| `uploaded/src/bikeproject/BikeParts.java` | Общий интерфейс велосипеда |
+| `uploaded/src/bikeproject/MountainParts.java` | Интерфейс горного велосипеда |
+| `uploaded/src/bikeproject/RoadParts.java` | Интерфейс шоссейного велосипеда |
+| `uploaded/src/bikeproject/Bike.java` | Базовый класс велосипеда |
+| `uploaded/src/bikeproject/MountainBike.java` | Горный велосипед |
+| `uploaded/src/bikeproject/RoadBike.java` | Шоссейный велосипед |
+| `uploaded/src/bikeproject/BikeDriver.java` | Проверка велосипедов и изменения bike1 |
 
-**Структура проекта Части 2 (`java/pr_3/uploaded`):**
+Отчёт расположен в `report.md`, изображения результатов — в `screenshots/`, общий шаблон Word — в `../gost-reference.docx`.
 
-```text
-java/pr_3/uploaded/                     # Eclipse-проект bikeproject из архива
-├── .classpath                          # настройки проекта Eclipse (JavaSE-1.8)
-├── .project
-├── .settings/
-│   └── org.eclipse.jdt.core.prefs
-├── README (Pr. 3).md                   # задание Части 2 (проектирование интерфейсов)
-├── src/bikeproject/                    # исходный код проекта
-│   ├── Bike.java                       # базовый класс (реализует BikeParts)
-│   ├── RoadBike.java                   # шоссейный велосипед (реализует RoadParts)
-│   ├── MountainBike.java               # горный велосипед (реализует MountainParts)
-│   ├── BikeDriver.java                 # драйвер с методом main
-│   ├── BikeParts.java                  # интерфейс: константа MAKE и общие методы
-│   ├── RoadParts.java                  # интерфейс: константа terrain и методы шоссейного велосипеда
-│   └── MountainParts.java              # интерфейс: константа TERRAIN и методы горного велосипеда
-└── bin/bikeproject/                    # результат компиляции (*.class)
+## 2.2 Компиляция
+
+Команды выполняются из каталога `java/pr_3`. Результаты сборки вынесены за пределы исходных файлов.
+
+::: {custom-style="ListingCaption"}
+Листинг 1 — Команды компиляции проекта
+:::
+
+```sh
+javac -encoding UTF-8 -d /tmp/pr3-classes vehicles/*.java app/*.java
+javac -encoding UTF-8 -d /tmp/pr3-bike-classes uploaded/src/bikeproject/*.java
 ```
 
-## 4. Ход выполнения работы (Часть 1)
+# 3 Ход выполнения работы
 
-### 4.1 Абстрактный класс `Vehicle`
 
-В пакете `vehicles` создан абстрактный класс `Vehicle`. Все общие характеристики транспортного средства объявлены приватными (`private`), чтобы доступ к ним осуществлялся только через публичные геттеры и сеттеры — это обеспечивает инкапсуляцию. Исключение составляет поле `engineType`: оно объявлено как `protected`, поскольку тип двигателя задаётся непосредственно в конструкторах классов-наследников `Car` и `ElectricCar`.
+## 3.1 Абстрактный класс транспортного средства
 
-Класс содержит:
-- два защищённых конструктора: по умолчанию и с полным набором параметров;
-- абстрактный метод `vehicleType()`, который обязаны реализовать все конкретные подклассы;
-- геттеры и сеттеры для каждого из семи полей;
-- переопределённый метод `toString()`, возвращающий строку с описанием транспортного средства. Общая часть описания формируется в защищённом методе `commonDescription()`, чтобы подклассы могли дополнять её своими полями.
+Общие поля инкапсулированы в `Vehicle`: доступ к ним осуществляется через геттеры и сеттеры. Поле `engineType` защищённое, чтобы наследники могли задавать тип двигателя. Метод `vehicleType()` абстрактный. `commonDescription()` формирует общую часть описания, используемую в `toString()`.
 
 **Файл `vehicles/Vehicle.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 2 — Исходный код файла vehicles/Vehicle.java
+:::
 
 ```java
 package vehicles;
@@ -268,11 +274,16 @@ public abstract class Vehicle {
 }
 ```
 
-### 4.2 Интерфейс `ElectricVehicle`
 
-Интерфейс описывает специфические методы электромобиля — чтение и изменение ёмкости батареи. Методы интерфейса неявно являются публичными и абстрактными, поэтому класс, реализующий интерфейс, обязан предоставить их реализацию.
+## 3.2 Интерфейс электромобиля
+
+Интерфейс определяет получение и изменение ёмкости батареи. Ссылка типа `ElectricVehicle` позволяет обращаться к этим операциям независимо от реализации электромобиля.
 
 **Файл `vehicles/ElectricVehicle.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 3 — Исходный код файла vehicles/ElectricVehicle.java
+:::
 
 ```java
 package vehicles;
@@ -300,11 +311,16 @@ public interface ElectricVehicle {
 }
 ```
 
-### 4.3 Класс `Car`
 
-Класс `Car` наследует абстрактный класс `Vehicle` и реализует его абстрактный метод `vehicleType()`, возвращая строку `"Car"`. В обоих конструкторах тип двигателя задаётся как `"Combustion"` — двигатель внутреннего сгорания.
+## 3.3 Автомобиль с двигателем внутреннего сгорания
+
+Класс `Car` наследует `Vehicle`. Конструкторы задают тип двигателя `Combustion`, а `vehicleType()` возвращает `Car`.
 
 **Файл `vehicles/Car.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 4 — Исходный код файла vehicles/Car.java
+:::
 
 ```java
 package vehicles;
@@ -346,17 +362,16 @@ public class Car extends Vehicle {
 }
 ```
 
-### 4.4 Класс `ElectricCar`
 
-Класс `ElectricCar` наследует `Car` и реализует интерфейс `ElectricVehicle`:
+## 3.4 Электромобиль, реализующий ElectricVehicle
 
-```java
-public class ElectricCar extends Car implements ElectricVehicle
-```
-
-В классе добавлено приватное поле `batteryCapacity` (ёмкость батареи в кВт·ч) и реализованы методы интерфейса `getBatteryCapacity()` и `setBatteryCapacity()`. В конструкторах после вызова конструктора родительского класса `super(...)` тип двигателя переопределяется как `"Electric"`. Метод `vehicleType()` возвращает `"Electric Car"`, а метод `toString()` дополняет описание, полученное из родительского класса, значением ёмкости батареи.
+Класс `ElectricCar` наследует `Car` и реализует `ElectricVehicle`. Конструктор заменяет тип двигателя на `Electric`. Поле `batteryCapacity` хранит ёмкость батареи; переопределённый `toString()` дополняет описание этим значением.
 
 **Файл `vehicles/ElectricCar.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 5 — Исходный код файла vehicles/ElectricCar.java
+:::
 
 ```java
 package vehicles;
@@ -420,17 +435,16 @@ public class ElectricCar extends Car implements ElectricVehicle {
 }
 ```
 
-### 4.5 Тестовый класс `TestCar`
 
-Тестовый класс `TestCar` пакета `app` последовательно выполняет все требования к тестированию:
+## 3.5 Проверка транспортных средств
 
-1. создаёт экземпляры классов `Car` и `ElectricCar`;
-2. изменяет год выпуска и имя владельца через сеттеры `setYear()` и `setOwnerName()`;
-3. изменяет страховой номер через сеттер `setInsuranceNumber()`;
-4. получает информацию о ёмкости батареи электромобиля через ссылку типа `ElectricVehicle` и изменяет её методом `setBatteryCapacity()`;
-5. выводит информацию о транспортных средствах в консоль методом `toString()` — как напрямую, так и полиморфно, через массив ссылок `Vehicle[]`.
+Тест создаёт автомобиль и электромобиль, изменяет год, владельца и страховку. Ёмкость батареи считывается и изменяется через интерфейс. Массив `Vehicle[]` демонстрирует динамическое связывание методов `vehicleType()` и `toString()`.
 
 **Файл `app/TestCar.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 6 — Исходный код файла app/TestCar.java
+:::
 
 ```java
 package app;
@@ -507,141 +521,15 @@ public class TestCar {
 ```
 
 
-## 5. Результат работы программы (Часть 1)
+## 3.6 Общий интерфейс велосипеда
 
-Команды для компиляции и запуска из каталога `java/pr_3`:
+Константа `MAKE` хранит название производителя `Oracle Cycles`; методы `getMake()` и `printDescription()` задают общий контракт.
 
-```sh
-javac -encoding UTF-8 -d /tmp/pr3-classes vehicles/*.java app/*.java
-java -cp /tmp/pr3-classes app.TestCar
-```
+**Файл `uploaded/src/bikeproject/BikeParts.java`:**
 
-Ожидаемый вывод в терминале:
-
-```text
-=== Практическая работа №3. Часть 1. Задача #1 ===
-
-1. Созданные экземпляры Car и ElectricCar:
-Car{model='Лада Веста', license='А123ВС 77', color='Белый', year=2019, ownerName='Иванов Иван Иванович', insuranceNumber='СТР-001-77', engineType='Combustion'}
-Electric Car{model='Tesla Model 3', license='В456ЕЕ 77', color='Красный', year=2023, ownerName='Петрова Мария Сергеевна', insuranceNumber='СТР-002-77', engineType='Electric', batteryCapacity=75 kWh}
-
-2. Изменение года выпуска и имени владельца:
-   Car:         year=2021, ownerName='Сидоров Алексей Петрович'
-   ElectricCar: year=2024, ownerName='Смирнова Анна Викторовна'
-
-3. Изменение страхового номера:
-   Car:         insuranceNumber='СТР-101-77'
-   ElectricCar: insuranceNumber='СТР-102-77'
-
-4. Ёмкость батареи электромобиля (ссылка типа ElectricVehicle):
-   getBatteryCapacity() = 75 кВт·ч
-   После setBatteryCapacity(82): 82 кВт·ч
-
-5. Вывод информации о транспортных средствах через toString():
-   Тип ТС (vehicleType): Car
-   Описание (toString):  Car{model='Лада Веста', license='А123ВС 77', color='Белый', year=2021, ownerName='Сидоров Алексей Петрович', insuranceNumber='СТР-101-77', engineType='Combustion'}
-   ------------------------------------------
-   Тип ТС (vehicleType): Electric Car
-   Описание (toString):  Electric Car{model='Tesla Model 3', license='В456ЕЕ 77', color='Красный', year=2024, ownerName='Смирнова Анна Викторовна', insuranceNumber='СТР-102-77', engineType='Electric', batteryCapacity=82 kWh}
-   ------------------------------------------
-```
-
-| Требование к тестированию | Строки вывода |
-|---|---|
-| Созданы экземпляры `Car` и `ElectricCar` | блок 1 |
-| Изменение года выпуска и имени владельца | блок 2 |
-| Изменение страхового номера | блок 3 |
-| Получение информации о ёмкости батареи | блок 4 |
-| Вывод информации методом `toString()` | блок 5 |
-
-> 📸 **[СКРИНШОТ №1 — Часть 1. Задача #1]**  
-> *Вставьте сюда скриншот запуска `app.TestCar` в терминале / IDE (создание объектов `Car` и `ElectricCar`, изменение года выпуска, имени владельца и страхового номера, получение ёмкости батареи и вывод описаний методом `toString()`).*
-
-
-## 6. Часть 2. Проект `bikeproject`: ответы на вопросы и модернизация
-
-### 6.1 Исходный проект
-
-Проект из архива `bikeproject.zip` размещён в каталоге `java/pr_3/uploaded` (Eclipse-проект: исходники — `src/bikeproject`, результат сборки — `bin`). В исходной версии объявлено четыре класса:
-
-| Класс | Назначение | Поля | Конструкторы |
-|---|---|---|---|
-| `Bike` | базовый велосипед | `handleBars`, `frame`, `tyres`, `seatType` (`String`), `NumGears` (`int`), `make` (`final String`) | `Bike()`, `Bike(String, String, String, String, int)` |
-| `RoadBike` | шоссейный велосипед | `tyreWidth`, `postHeight` (`int`) | `RoadBike()`, `RoadBike(int postHeight)`, `RoadBike(String, String, String, String, int, int, int)` |
-| `MountainBike` | горный велосипед | `suspension`, `type` (`String`), `frameSize` (`int`) | `MountainBike()`, `MountainBike(String, String, String, String, int, String, String, int)` |
-| `BikeDriver` | драйвер с методом `main` | — | явных нет |
-
-Иерархия классов исходного проекта:
-
-```text
-Bike
-├── RoadBike
-└── MountainBike
-```
-
-### 6.2 Ответы на вопросы
-
-**1. Пример примитивного типа данных для хранения полей класса.**  
-Примитивный тип `int` используется для полей `NumGears` в классе `Bike`, `tyreWidth` и `postHeight` в классе `RoadBike`, `frameSize` в классе `MountainBike`. Поля типа `String` (`handleBars`, `frame`, `tyres`, `seatType`, `make`, `suspension`, `type`) примитивами не являются — это ссылочный тип.
-
-**2. Пример конкатенации строк.**  
-Конкатенация выполняется в методе `printDescription()` каждого класса при помощи оператора `+`:
-
-```java
-System.out.println("\n" + this.make + "\n"
-        + "This bike has " + this.handleBars + " handlebars on a "
-        + this.frame + " frame with " + this.NumGears + " gears."
-        + "\nIt has a " + this.seatType + " seat with " + this.tyres + " tyres.");
-```
-
-При конкатенации строки с числом (`this.NumGears`, `this.tyreWidth`, `this.postHeight`, `this.frameSize`) число автоматически преобразуется в строку, например: `"This Roadbike bike has " + this.tyreWidth + "mm tyres"`.
-
-**3. Имена объектов, созданных в программе.**
-
-| Переменная | Класс | Строка в `BikeDriver` |
-|---|---|---|
-| `bike1` | `RoadBike` | `RoadBike bike1 = new RoadBike();` |
-| `bike2` | `RoadBike` | `RoadBike bike2 = new RoadBike("drop", "tourer", "semi-grip", "comfort", 14, 25, 18);` |
-| `bike3` | `MountainBike` | `MountainBike bike3 = new MountainBike();` |
-| `bike4` | `Bike` | `Bike bike4 = new Bike();` |
-
-**4. Количество конструкторов у каждого класса.**
-
-| Класс | Количество конструкторов | Перечень |
-|---|---:|---|
-| `Bike` | 2 | `Bike()`, `Bike(String handleBars, String frame, String tyres, String seatType, int numGears)` |
-| `RoadBike` | 3 | `RoadBike()`, `RoadBike(int postHeight)`, `RoadBike(String, String, String, String, int, int tyreWidth, int postHeight)` |
-| `MountainBike` | 2 | `MountainBike()`, `MountainBike(String, String, String, String, int, String suspension, String type, int frameSize)` |
-| `BikeDriver` | 0 (явных) | используется неявный конструктор по умолчанию |
-
-**5. Наследование: суперкласс и подклассы.**  
-Суперкласс (родительский класс) — `Bike`: в нём объявлены общие для всех велосипедов поля (`handleBars`, `frame`, `tyres`, `seatType`, `NumGears`, `make`) и метод `printDescription()`.  
-Подклассы — `RoadBike` (`class RoadBike extends Bike`) и `MountainBike` (`class MountainBike extends Bike`): они наследуют поля и методы `Bike`, добавляют собственные поля и переопределяют `printDescription()`, дополняя описание родителя через `super.printDescription()`.  
-Класс `BikeDriver` в наследовании не участвует — он только создаёт объекты и вызывает их методы.
-
-**6. Примеры значений для стандартного велосипеда каждого типа.**
-
-| Поле | `bike1` — `RoadBike()` (стандарт) | `bike2` — `RoadBike(...)` (под заказ) | `bike3` — `MountainBike()` (стандарт) | `bike4` — `Bike()` (стандарт) |
-|---|---|---|---|---|
-| `make` | Oracle Cycles | Oracle Cycles | Oracle Cycles | Oracle Cycles |
-| `handleBars` | drop | drop | Bull Horn | `null` (не задано) |
-| `frame` | racing | tourer | Hardtail | `null` (не задано) |
-| `tyres` | tread less | semi-grip | Maxxis | `null` (не задано) |
-| `seatType` | razor | comfort | dropper | `null` (не задано) |
-| `NumGears` | 19 | 14 | 27 | 0 |
-| `tyreWidth` | 20 | 25 | — | — |
-| `postHeight` | 22 | 18 | — | — |
-| `suspension` | — | — | RockShox XC32 | — |
-| `type` | — | — | Pro | — |
-| `frameSize` | — | — | 19 | — |
-
-Конструктор по умолчанию каждого класса вызывает другой конструктор того же класса через `this(...)` и передаёт ему стандартный набор значений, поэтому «стандартный» велосипед отличается от «настроенного» только аргументами конструктора.
-
-### 6.3 Создание интерфейсов (пункты 1–3)
-
-**Пункт 1. Интерфейс `BikeParts`.** Название компании-производителя задано константой `MAKE`. Поля интерфейса неявно объявляются как `public static final`, поэтому значение `MAKE` изменить нельзя — требование «неизменяемое значение» выполняется. Тот же интерфейс определяет методы, обязательные для реализующего класса: `getMake()` (доступ к названию производителя) и `printDescription()` (вывод описания велосипеда).
-
-**Файл `src/bikeproject/BikeParts.java`:**
+::: {custom-style="ListingCaption"}
+Листинг 7 — Исходный код файла uploaded/src/bikeproject/BikeParts.java
+:::
 
 ```java
 package bikeproject;
@@ -669,9 +557,16 @@ public interface BikeParts {
 }
 ```
 
-**Пункт 2. Интерфейс `MountainParts`.** Содержит константу `TERRAIN = "off_road"` и четыре метода: `getSuspension()`, `setSuspension(String newValue)`, `getType()`, `setType(String newValue)`.
 
-**Файл `src/bikeproject/MountainParts.java`:**
+## 3.7 Интерфейс горного велосипеда
+
+Константа `TERRAIN` равна `off_road`. Методы интерфейса читают и изменяют подвеску и тип горного велосипеда.
+
+**Файл `uploaded/src/bikeproject/MountainParts.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 8 — Исходный код файла uploaded/src/bikeproject/MountainParts.java
+:::
 
 ```java
 package bikeproject;
@@ -701,9 +596,16 @@ public interface MountainParts {
 }
 ```
 
-**Пункт 3. Интерфейс `RoadParts`.** Содержит константу `terrain = "track_racing"` и четыре метода: `getTyreWidth()`, `setTyreWidth(String newValue)`, `getPostHeight()`, `setPostHeight(String newValue)`.
 
-**Файл `src/bikeproject/RoadParts.java`:**
+## 3.8 Интерфейс шоссейного велосипеда
+
+Константа `terrain` равна `track_racing`. Геттеры возвращают числовые характеристики, а сеттеры принимают строки согласно заданию.
+
+**Файл `uploaded/src/bikeproject/RoadParts.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 9 — Исходный код файла uploaded/src/bikeproject/RoadParts.java
+:::
 
 ```java
 package bikeproject;
@@ -733,11 +635,16 @@ public interface RoadParts {
 }
 ```
 
-### 6.4 Подключение интерфейсов к классам (пункты 4–6)
 
-**Пункт 4. Класс `Bike` реализует `BikeParts`.** В объявление класса добавлено `implements BikeParts`. Вместо строкового литерала `"Oracle Cycles"` в конструкторах теперь используется константа интерфейса `MAKE` (единая точка хранения названия производителя). Добавлен метод `getMake()`, а метод `printDescription()` изменён с `protected` на `public`: методы интерфейса неявно являются `public`, поэтому реализующий их метод нельзя сузить по видимости.
+## 3.9 Базовый класс велосипеда
 
-**Файл `src/bikeproject/Bike.java`:**
+Класс реализует `BikeParts`, хранит общие характеристики и выводит их методом `printDescription()`. В конструкторе без аргументов строковые характеристики остаются `null`, число передач — 0; это поведение существующего проекта сохранено.
+
+**Файл `uploaded/src/bikeproject/Bike.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 10 — Исходный код файла uploaded/src/bikeproject/Bike.java
+:::
 
 ```java
 package bikeproject;
@@ -778,9 +685,16 @@ public class Bike implements BikeParts {
 }//end class Bike
 ```
 
-**Пункт 5. Класс `MountainBike` реализует `MountainParts`.** В объявление класса добавлено `implements MountainParts`, реализованы четыре метода интерфейса: геттеры возвращают текущие значения полей `suspension` и `type`, сеттеры записывают в эти поля значение аргумента `newValue`.
 
-**Файл `src/bikeproject/MountainBike.java`:**
+## 3.10 Горный велосипед
+
+Класс наследует `Bike` и реализует `MountainParts`. Конструктор без аргументов делегирует параметризованному конструктору, а вывод дополняет описание базового класса сведениями о подвеске, типе и размере рамы.
+
+**Файл `uploaded/src/bikeproject/MountainBike.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 11 — Исходный код файла uploaded/src/bikeproject/MountainBike.java
+:::
 
 ```java
 package bikeproject;
@@ -832,9 +746,16 @@ public class MountainBike extends Bike implements MountainParts{
 }//end class MountainBike
 ```
 
-**Пункт 6. Класс `RoadBike` реализует `RoadParts`.** В объявление класса добавлено `implements RoadParts`, реализованы четыре метода интерфейса. Поля `tyreWidth` и `postHeight` имеют тип `int`, а сеттеры по условию принимают строковый аргумент `newValue`, поэтому внутри сеттеров выполняется преобразование строки в число: `Integer.parseInt(newValue.trim())`. Геттеры возвращают текущие значения полей.
 
-**Файл `src/bikeproject/RoadBike.java`:**
+## 3.11 Шоссейный велосипед
+
+Класс наследует `Bike` и реализует `RoadParts`. Методы `setTyreWidth()` и `setPostHeight()` преобразуют строку в `int` с помощью `Integer.parseInt(newValue.trim())`. Некорректная строка приводит к `NumberFormatException`.
+
+**Файл `uploaded/src/bikeproject/RoadBike.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 12 — Исходный код файла uploaded/src/bikeproject/RoadBike.java
+:::
 
 ```java
 package bikeproject;
@@ -888,14 +809,16 @@ public class RoadBike extends Bike implements RoadParts{
 }//end class RoadBike
 ```
 
-### 6.5 Изменение драйвера (пункты 8–9)
 
-В нижней части метода `main` после вывода всех четырёх велосипедов добавлено:
+## 3.12 Проверка велосипедов и изменения bike1
 
-- **пункт 8** — изменение высоты подседельного штыря `bike1` с 22 на 20: `bike1.setPostHeight("20");` (значение передаётся строкой, как требует интерфейс `RoadParts`);
-- **пункт 9** — вывод значений `bike1` (`getMake()`, `getTyreWidth()`, `getPostHeight()`) и его описания для подтверждения изменения.
+Драйвер создаёт четыре велосипеда и выводит исходные характеристики. Затем вызов `bike1.setPostHeight("20")` меняет высоту штыря с 22 на 20; повторный вывод подтверждает изменение.
 
-**Файл `src/bikeproject/BikeDriver.java`:**
+**Файл `uploaded/src/bikeproject/BikeDriver.java`:**
+
+::: {custom-style="ListingCaption"}
+Листинг 13 — Исходный код файла uploaded/src/bikeproject/BikeDriver.java
+:::
 
 ```java
 package bikeproject;
@@ -928,48 +851,74 @@ public class BikeDriver {
 }//end class BikeDriver
 ```
 
-### 6.6 Компиляция и запуск (пункты 7 и 10)
+
+# 4 Результаты выполнения
+
+## 4.1 Транспортные средства
+
+::: {custom-style="ListingCaption"}
+Листинг 14 — Команда запуска: Транспортные средства
+:::
 
 ```sh
-cd java/pr_3/uploaded
-javac -encoding UTF-8 -d bin src/bikeproject/*.java
-java -cp bin bikeproject.BikeDriver
+java -cp /tmp/pr3-classes app.TestCar
 ```
 
-
-## 7. Результат работы программы (Часть 2)
-
-### 7.1 Проверка совместимости (пункт 7)
-
-После подключения интерфейсов программа запускается и первые четыре вызова `printDescription()` дают **точно такой же** вывод, что и исходная версия: содержимое полей не изменилось, а константа `MAKE` интерфейса `BikeParts` хранит ту же строку `"Oracle Cycles"`, которая раньше была записана в конструкторах литералом. Построчное сравнение вывода исходной и модернизированной версий (`diff`) различий не выявило.
-
-Вывод, который дают первые четыре вызова `printDescription()` (он полностью совпадает с выводом исходной версии программы):
+::: {custom-style="ListingCaption"}
+Листинг 15 — Консольный вывод: Транспортные средства
+:::
 
 ```text
+=== Практическая работа №3. Часть 1. Задача #1 ===
 
-Oracle Cycles
-This bike has drop handlebars on a racing frame with 19 gears.
-It has a razor seat with tread less tyres.
-This Roadbike bike has 20mm tyres and a post height of 22.
+1. Созданные экземпляры Car и ElectricCar:
+Car{model='Лада Веста', license='А123ВС 77', color='Белый', year=2019, ownerName='Иванов Иван Иванович', insuranceNumber='СТР-001-77', engineType='Combustion'}
+Electric Car{model='Tesla Model 3', license='В456ЕЕ 77', color='Красный', year=2023, ownerName='Петрова Мария Сергеевна', insuranceNumber='СТР-002-77', engineType='Electric', batteryCapacity=75 kWh}
 
-Oracle Cycles
-This bike has drop handlebars on a tourer frame with 14 gears.
-It has a comfort seat with semi-grip tyres.
-This Roadbike bike has 25mm tyres and a post height of 18.
+2. Изменение года выпуска и имени владельца:
+   Car:         year=2021, ownerName='Сидоров Алексей Петрович'
+   ElectricCar: year=2024, ownerName='Смирнова Анна Викторовна'
 
-Oracle Cycles
-This bike has Bull Horn handlebars on a Hardtail frame with 27 gears.
-It has a dropper seat with Maxxis tyres.
-This mountain bike is a Pro bike and has a RockShox XC32 suspension and a frame size of 19inches.
+3. Изменение страхового номера:
+   Car:         insuranceNumber='СТР-101-77'
+   ElectricCar: insuranceNumber='СТР-102-77'
 
-Oracle Cycles
-This bike has null handlebars on a null frame with 0 gears.
-It has a null seat with null tyres.
+4. Ёмкость батареи электромобиля (ссылка типа ElectricVehicle):
+   getBatteryCapacity() = 75 кВт·ч
+   После setBatteryCapacity(82): 82 кВт·ч
+
+5. Вывод информации о транспортных средствах через toString():
+   Тип ТС (vehicleType): Car
+   Описание (toString):  Car{model='Лада Веста', license='А123ВС 77', color='Белый', year=2021, ownerName='Сидоров Алексей Петрович', insuranceNumber='СТР-101-77', engineType='Combustion'}
+   ------------------------------------------
+   Тип ТС (vehicleType): Electric Car
+   Описание (toString):  Electric Car{model='Tesla Model 3', license='В456ЕЕ 77', color='Красный', year=2024, ownerName='Смирнова Анна Викторовна', insuranceNumber='СТР-102-77', engineType='Electric', batteryCapacity=82 kWh}
+   ------------------------------------------
 ```
 
-### 7.2 Итоговый вывод (пункты 8–10)
+Проверены создание объектов, изменение года выпуска, владельца и страховки, изменение ёмкости батареи с 75 до 82 кВт·ч и полиморфный вывод. Скриншот результата приводится на рисунке 1.
 
-После выполнения пункта 8 высота подседельного штыря `bike1` равна 20 вместо 22, а пункт 9 выводит значения `bike1` для подтверждения изменения:
+::: {custom-style="Captioned Figure"}
+![](<screenshots/image.png>){width=15.5cm}
+:::
+
+::: {custom-style="Image Caption"}
+Рисунок 1 — Результат работы программы app.TestCar
+:::
+
+## 4.2 Велосипеды
+
+::: {custom-style="ListingCaption"}
+Листинг 16 — Команда запуска: Велосипеды
+:::
+
+```sh
+java -cp /tmp/pr3-bike-classes bikeproject.BikeDriver
+```
+
+::: {custom-style="ListingCaption"}
+Листинг 17 — Консольный вывод: Велосипеды
+:::
 
 ```text
 
@@ -1003,37 +952,88 @@ It has a razor seat with tread less tyres.
 This Roadbike bike has 20mm tyres and a post height of 20.
 ```
 
-Сравнение с первоначальным выводом: у `bike1` изменилась только высота штыря (`post height of 22` → `post height of 20`), описание остальных велосипедов (`bike2`, `bike3`, `bike4`) не изменилось.
-
-| Пункт задания | Что сделано | Где видно в выводе |
-|---|---|---|
-| 7 | Программа после подключения интерфейсов работает так же, как раньше | первые четыре блока вывода совпадают с исходной версией |
-| 8 | Высота штыря `bike1` изменена на 20 вместо 22 | `postHeight: 20` и `post height of 20.` |
-| 9 | Значения `bike1` выведены на экран | блок `bike1 values after change:` |
-| 10 | Программа повторно запущена и протестирована | полный вывод в п. 7.2 |
+Первые четыре описания показывают характеристики созданных велосипедов. В конце вывода `postHeight: 20` и `post height of 20.` подтверждают изменение высоты штыря `bike1`; остальные велосипеды не изменяются. Скриншот результата приводится на рисунке 2.
 
 ::: {custom-style="Captioned Figure"}
-![](<>){width=15.5cm}
+![](<screenshots/image copy.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
-Рисунок 1 — Результат работы программы app.TestTriangleTask1
+Рисунок 2 — Результат работы программы bikeproject.BikeDriver
 :::
 
+# 5 Ответы на контрольные вопросы
 
-## 8. Заключение
+**1. Пример примитивного типа данных для хранения полей класса.**\
+Примитивный тип `int` используется для полей `NumGears` в классе `Bike`, `tyreWidth` и `postHeight` в классе `RoadBike`, `frameSize` в классе `MountainBike`. Поля типа `String` (`handleBars`, `frame`, `tyres`, `seatType`, `make`, `suspension`, `type`) примитивами не являются — это ссылочный тип.
 
-В ходе выполнения практической работы №3 были изучены и практически применены механизмы объектно-ориентированного программирования в Java:
+**2. Пример конкатенации строк.**\
+Конкатенация выполняется в методе `printDescription()` каждого класса при помощи оператора `+`:
 
-1. **Организация программы по пакетам.** Классы предметной области (`Vehicle`, `Car`, `ElectricCar`) и интерфейс `ElectricVehicle` размещены в пакете `vehicles`, а тестовый класс `TestCar` — в пакете `app`. Структура каталогов соответствует именам пакетов, классы подключаются директивами `import`.
-2. **Абстрактный класс.** Общие характеристики транспортного средства вынесены в абстрактный класс `Vehicle` с абстрактным методом `vehicleType()`. Создать экземпляр такого класса нельзя, а каждый конкретный подкласс обязан реализовать метод `vehicleType()`.
-3. **Интерфейс.** Интерфейс `ElectricVehicle` задаёт контракт поведения электромобиля (`getBatteryCapacity()` и `setBatteryCapacity()`). Класс `ElectricCar` реализует этот интерфейс, предоставляя конкретную реализацию обоих методов и поле `batteryCapacity`.
-4. **Наследование и инкапсуляция.** Построена иерархия `Vehicle -> Car -> ElectricCar`. Поля класса `Vehicle` скрыты модификатором `private` и доступны через геттеры и сеттеры, а поле `engineType` объявлено `protected`, что позволяет задавать тип двигателя в конструкторах наследников (`"Combustion"` для `Car` и `"Electric"` для `ElectricCar`).
-5. **Полиморфизм.** В тестовом классе продемонстрирована работа с объектами через ссылку типа интерфейса `ElectricVehicle` и через массив ссылок базового типа `Vehicle[]`, что позволяет единообразно вызывать переопределённые методы `vehicleType()` и `toString()`.
-6. **Интерфейсы как контракт поведения.** В Части 2 в проекте `bikeproject` созданы интерфейсы `BikeParts`, `MountainParts` и `RoadParts`. Классы `Bike`, `MountainBike` и `RoadBike` реализуют соответствующие интерфейсы (`implements`), предоставляя конкретную реализацию всех объявленных методов.
-7. **Константы интерфейса.** Название компании-производителя вынесено в константу `MAKE` интерфейса `BikeParts`, а типы местности — в константы `TERRAIN` и `terrain` интерфейсов `MountainParts` и `RoadParts`. Поля интерфейса неявно являются `public static final`, поэтому эти значения изменить нельзя.
-8. **Сохранение поведения при рефакторинге.** Подключение интерфейсов не изменило вывод программы: исходная и модернизированная версии `bikeproject` выводят одинаковые описания четырёх велосипедов. После этого высота подседельного штыря `bike1` изменена с 22 на 20 через метод интерфейса `setPostHeight`, и результат изменения подтверждён выводом значений `bike1` на экран.
+::: {custom-style="ListingCaption"}
+Листинг 18 — Пример конкатенации строк
+:::
 
-Таким образом, все требования постановки задачи выполнены: программа организована по пакетам, содержит абстрактный класс и интерфейс, а тестовый класс демонстрирует создание объектов, изменение их свойств, получение ёмкости батареи и вывод описаний методом `toString()`.
+```java
+System.out.println("\n" + this.make + "\n"
+        + "This bike has " + this.handleBars + " handlebars on a "
+        + this.frame + " frame with " + this.NumGears + " gears."
+        + "\nIt has a " + this.seatType + " seat with " + this.tyres + " tyres.");
+```
 
-В Части 2, в свою очередь, в проект `bikeproject` добавлены интерфейсы `BikeParts`, `MountainParts` и `RoadParts` с константами и набором методов, реализованными в классах `Bike`, `MountainBike` и `RoadBike`, а работоспособность программы проверена запуском. Таким образом, обе части практической работы №3 выполнены полностью.
+При конкатенации строки с числом (`this.NumGears`, `this.tyreWidth`, `this.postHeight`, `this.frameSize`) число автоматически преобразуется в строку, например: `"This Roadbike bike has " + this.tyreWidth + "mm tyres"`.
+
+**3. Имена объектов, созданных в программе.**
+
+Table: Таблица 3 — Объекты, созданные в BikeDriver
+
+| Переменная | Класс | Строка в `BikeDriver` |
+|---|---|---|
+| `bike1` | `RoadBike` | `RoadBike bike1 = new RoadBike();` |
+| `bike2` | `RoadBike` | `RoadBike bike2 = new RoadBike("drop", "tourer", "semi-grip", "comfort", 14, 25, 18);` |
+| `bike3` | `MountainBike` | `MountainBike bike3 = new MountainBike();` |
+| `bike4` | `Bike` | `Bike bike4 = new Bike();` |
+
+**4. Количество конструкторов у каждого класса.**
+
+Table: Таблица 4 — Конструкторы классов проекта bikeproject
+
+| Класс | Количество конструкторов | Перечень |
+|---|---:|---|
+| `Bike` | 2 | `Bike()`, `Bike(String handleBars, String frame, String tyres, String seatType, int numGears)` |
+| `RoadBike` | 3 | `RoadBike()`, `RoadBike(int postHeight)`, `RoadBike(String, String, String, String, int, int tyreWidth, int postHeight)` |
+| `MountainBike` | 2 | `MountainBike()`, `MountainBike(String, String, String, String, int, String suspension, String type, int frameSize)` |
+| `BikeDriver` | 0 (явных) | используется неявный конструктор по умолчанию |
+
+**5. Наследование: суперкласс и подклассы.**\
+Суперкласс (родительский класс) — `Bike`: в нём объявлены общие для всех велосипедов поля (`handleBars`, `frame`, `tyres`, `seatType`, `NumGears`, `make`) и метод `printDescription()`.\
+Подклассы — `RoadBike` (`class RoadBike extends Bike`) и `MountainBike` (`class MountainBike extends Bike`): они наследуют поля и методы `Bike`, добавляют собственные поля и переопределяют `printDescription()`, дополняя описание родителя через `super.printDescription()`.\
+Класс `BikeDriver` в наследовании не участвует — он только создаёт объекты и вызывает их методы.
+
+**6. Примеры значений для стандартного велосипеда каждого типа.**
+
+Table: Таблица 5 — Характеристики стандартных и заказного велосипедов
+
+| Поле | `bike1` — `RoadBike()` (стандарт) | `bike2` — `RoadBike(...)` (под заказ) | `bike3` — `MountainBike()` (стандарт) | `bike4` — `Bike()` (стандарт) |
+|---|---|---|---|---|
+| `make` | Oracle Cycles | Oracle Cycles | Oracle Cycles | Oracle Cycles |
+| `handleBars` | drop | drop | Bull Horn | `null` (не задано) |
+| `frame` | racing | tourer | Hardtail | `null` (не задано) |
+| `tyres` | tread less | semi-grip | Maxxis | `null` (не задано) |
+| `seatType` | razor | comfort | dropper | `null` (не задано) |
+| `NumGears` | 19 | 14 | 27 | 0 |
+| `tyreWidth` | 20 | 25 | — | — |
+| `postHeight` | 22 | 18 | — | — |
+| `suspension` | — | — | RockShox XC32 | — |
+| `type` | — | — | Pro | — |
+| `frameSize` | — | — | 19 | — |
+
+Конструктор по умолчанию каждого класса вызывает другой конструктор того же класса через `this(...)` и передаёт ему стандартный набор значений, поэтому «стандартный» велосипед отличается от «настроенного» только аргументами конструктора.
+
+::: {custom-style="StructuralHeading"}
+ЗАКЛЮЧЕНИЕ
+:::
+
+В ходе работы изучены пакеты Java, абстрактные классы, интерфейсы, наследование и полиморфизм. Разработана иерархия `Vehicle → Car → ElectricCar`; интерфейс `ElectricVehicle` выделяет операции работы с батареей. Тестовый класс демонстрирует создание объектов, изменение их свойств и вызов переопределённых методов через ссылки базового типа.
+
+В проекте `bikeproject` реализованы интерфейсы `BikeParts`, `MountainParts` и `RoadParts`. Общие и специализированные характеристики распределены между базовым классом и наследниками. Изменение высоты подседельного штыря `bike1` с 22 на 20 подтверждено консольным выводом. Обе части задания выполнены.
