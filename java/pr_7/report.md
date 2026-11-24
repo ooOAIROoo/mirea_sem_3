@@ -274,7 +274,7 @@ public class DecoratorDemo {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программы decorator.DecoratorDemo]
+![](<screenshots/image.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -426,7 +426,7 @@ public class MediatorDemo {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программы mediator.MediatorDemo]
+![](<screenshots/image copy.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
