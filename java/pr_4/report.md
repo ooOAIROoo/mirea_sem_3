@@ -272,7 +272,7 @@ public class TestTriangleTask1 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программы app.TestTriangleTask1]
+![](<screenshots/image.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -441,7 +441,7 @@ public class TestTriangleTask2 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программы app.TestTriangleTask2]
+![](<screenshots/image copy.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -872,7 +872,7 @@ public class TestGeometricTask3 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программы app.TestGeometricTask3]
+![](<screenshots/image copy 2.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -1018,7 +1018,7 @@ public class TestColorableTask4 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программы app.TestColorableTask4]
+![](<screenshots/image copy 3.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -1163,7 +1163,7 @@ public class MonthDaysLeapTask2 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программ app.MonthDaysTask1 и app.MonthDaysLeapTask2]
+![](<screenshots/image copy 4.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}

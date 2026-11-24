@@ -203,7 +203,7 @@ public class StackOnQueueTest {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программы queue.StackOnQueueTest]
+![](<screenshots/image.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -384,7 +384,7 @@ public class RestaurantDemo {
 ```
 
 ::: {custom-style="Captioned Figure"}
-[Место для вставки скриншота запуска программы builder.RestaurantDemo]
+![](<screenshots/image copy.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
