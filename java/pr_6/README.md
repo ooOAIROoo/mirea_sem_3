@@ -52,7 +52,7 @@ java/pr_6/
 
 ```text
 Часть 1 (пакет queue):
-  StackOnQueueTest ──> StackOnQueue ◆── (композиция) ──> 2 x Queue<Integer> (LinkedList)
+  StackOnQueueTest ──> StackOnQueue <>── (композиция) ──> 2 x Queue<Integer> (LinkedList)
 
 Часть 2 (пакет builder, вариант №4):
   RestaurantDemo ──> OrderBuilder ──build()──> Order

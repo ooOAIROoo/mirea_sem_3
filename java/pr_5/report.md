@@ -280,7 +280,7 @@ public class TestGenericsTask1 {
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image.png>){width=15.5cm}
+![](<screenshots/20261124_14h48m56s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -520,7 +520,7 @@ push(50) -> размер = 5, ёмкость = 8
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image copy.png>){width=15.5cm}
+![](<screenshots/20261124_15h26m45s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -767,7 +767,7 @@ original == copy: false
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image copy 2.png>){width=15.5cm}
+![](<screenshots/20261124_15h29m32s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}

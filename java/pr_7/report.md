@@ -274,7 +274,7 @@ public class DecoratorDemo {
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image.png>){width=15.5cm}
+![](<screenshots/20261124_16h43m39s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
@@ -426,7 +426,7 @@ public class MediatorDemo {
 ```
 
 ::: {custom-style="Captioned Figure"}
-![](<screenshots/image copy.png>){width=15.5cm}
+![](<screenshots/20261124_16h45m21s-th.png>){width=15.5cm}
 :::
 
 ::: {custom-style="Image Caption"}
