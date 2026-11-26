@@ -283,14 +283,53 @@ Table: Таблица 7 — Ручные проверки на графе вар
 
 Скриншоты сохраняются в каталоге `screenshots/`.
 
-Table: Таблица 8 — Скриншоты
+::: {custom-style="Captioned Figure"}
 
-| Файл | Содержание |
-|---|---|
-| `screenshots/01_demo_graph.png` | Загрузка предложенного графа, вывод списка смежности |
-| `screenshots/02_search_1_6.png` | Поиск кратчайшего пути `1 -> 6`, результат и статистика |
-| `screenshots/03_decision_tree.png` | Вывод дерева решений |
-| `screenshots/04_custom_input.png` | Ввод произвольного графа и поиск пути |
+![](screenshots/01_demo_graph.png){width=15.5cm}
+
+:::
+
+::: {custom-style="Image Caption"}
+
+Рисунок 1 — Загрузка предложенного графа и вывод списка смежности
+
+:::
+
+::: {custom-style="Captioned Figure"}
+
+![](screenshots/02_search_1_6.png){width=15.5cm}
+
+:::
+
+::: {custom-style="Image Caption"}
+
+Рисунок 2 — Поиск кратчайшего пути из вершины 1 в вершину 6
+
+:::
+
+::: {custom-style="Captioned Figure"}
+
+![](screenshots/03_decision_tree.png){width=15.5cm}
+
+:::
+
+::: {custom-style="Image Caption"}
+
+Рисунок 3 — Вывод дерева решений и статистики поиска
+
+:::
+
+::: {custom-style="Captioned Figure"}
+
+![](screenshots/04_custom_input.png){width=15.5cm}
+
+:::
+
+::: {custom-style="Image Caption"}
+
+Рисунок 4 — Ввод произвольного графа и поиск кратчайшего пути
+
+:::
 
 # 5 Ответы на контрольные вопросы
 
