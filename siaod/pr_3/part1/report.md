@@ -327,14 +327,53 @@ Table: Таблица 6 — Результаты ручного тестиров
 
 Скриншоты сохраняются в каталоге `screenshots/`.
 
-Table: Таблица 7 — Скриншоты
+::: {custom-style="Captioned Figure"}
 
-| Файл | Содержание |
-|---|---|
-| `screenshots/01_demo_tree.png` | Запуск `--demo`, пункт 7 — вывод дерева |
-| `screenshots/02_traversals.png` | Пункты 3 и 4 — прямой и симметричный обходы |
-| `screenshots/03_sum_avg.png` | Пункты 5 и 6 — сумма листьев и среднее |
-| `screenshots/04_insert_validate.png` | Вставка нового символа, пункт 8 — проверка свойств КЧ-дерева |
+![](screenshots/01_demo_tree.png){width=15.5cm}
+
+:::
+
+::: {custom-style="Image Caption"}
+
+Рисунок 1 — Запуск программы с демонстрационным набором, вывод дерева
+
+:::
+
+::: {custom-style="Captioned Figure"}
+
+![](screenshots/02_traversals.png){width=15.5cm}
+
+:::
+
+::: {custom-style="Image Caption"}
+
+Рисунок 2 — Прямой и симметричный обходы дерева
+
+:::
+
+::: {custom-style="Captioned Figure"}
+
+![](screenshots/03_sum_avg.png){width=15.5cm}
+
+:::
+
+::: {custom-style="Image Caption"}
+
+Рисунок 3 — Сумма значений листьев и среднее арифметическое всех узлов
+
+:::
+
+::: {custom-style="Captioned Figure"}
+
+![](screenshots/04_insert_validate.png){width=15.5cm}
+
+:::
+
+::: {custom-style="Image Caption"}
+
+Рисунок 4 — Вставка нового символа и проверка свойств красно-чёрного дерева
+
+:::
 
 # 5 Ответы на контрольные вопросы
 
